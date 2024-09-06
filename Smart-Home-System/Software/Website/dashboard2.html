@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <!-- Main Template CSS File -->
+    <link rel="stylesheet" href="css/dashboard2.css" />
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js" type="module"></script>
+    
+    <!-- JavaScript Files -->
+    <script src="js/firebase.js" type="module"></script>
+    <script src="js/dashboard.js" defer></script>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="dashboard2.html">
+          <div class="navbar-brand">
+            <i class="fas fa-home"></i>
+            <span>Smart Home</span>
+          </div>
+        </a>
+        <div class="navbar-profile">
+          <div class="profile-info">
+            <i class="fas fa-user"></i>
+            <span class="profile-name"> <!-- Hello, User --></span> <!-- This will be updated by Firebase -->
+            <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-icon active" data-target="home">
+          <i class="fas fa-home"></i>
+          <span class="icon-name">Home</span>
+        </div>
+        <div class="sidebar-icon" data-target="settings">
+          <i class="fas fa-cogs"></i>
+          <span class="icon-name">Settings</span>
+        </div>
+        <div class="sidebar-icon" data-target="garage">
+          <i class="fa-solid fa-warehouse"></i>
+          <span class="icon-name">Garage</span>
+        </div>
+        <div class="sidebar-icon" data-target="fan">
+          <i class="fa-solid fa-fan"></i>
+          <span class="icon-name">Fan</span>
+        </div>
+        <div class="sidebar-icon" data-target="light">
+          <i class="fa-solid fa-lightbulb"></i>
+          <span class="icon-name">Light</span>
+        </div>
+        <div class="sidebar-icon" data-target="fire">
+          <i class="fa-solid fa-fire"></i>
+          <span class="icon-name">Fire</span>
+        </div>
+        <div class="sidebar-icon" data-target="info">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="icon-name">Info</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Content -->
+      </div>
+    </div>
+    <!-- Footer Section -->
+    <footer>
+      <p>&copy; 2024 Smart Home Project</p>
+    </footer>
+  </body>
+</html>

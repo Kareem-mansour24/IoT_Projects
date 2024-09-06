@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+    <link rel="stylesheet" href="css/create account.css" />
+    <!-- Firebase Setup -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+      } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyD7y4xBWgc1eEfiTpTJ7RuUh-6TLAq6LaI",
+        authDomain: "smart-home-2bd36.firebaseapp.com",
+        projectId: "smart-home-2bd36",
+        storageBucket: "smart-home-2bd36.appspot.com",
+        messagingSenderId: "957427179773",
+        appId: "1:957427179773:web:73eea37d6ccb43cdb79e94",
+        measurementId: "G-8383S2QC3K",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const database = getDatabase(app);
+
+      // Export auth and database to use in other scripts
+      window.auth = auth;
+      window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+      window.database = database;
+      window.ref = ref;
+      window.set = set;
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="create-account-box">
+        <h2>Create Account</h2>
+        <form id="createAccountForm">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+
+          <button type="submit">Create Account</button>
+        </form>
+      </div>
+      <div id="customAlert" class="custom-alert hidden">
+        <div class="custom-alert-content">
+            <p id="alertMessage">An error occurred!</p>
+            <button onclick="hideAlert()">OK</button>
+        </div>
+    </div>
+    </div>
+  
+    <!-- Link to your JavaScript file -->
+    <script src="js/app.js" type="module"></script>
+  </body>
+</html>

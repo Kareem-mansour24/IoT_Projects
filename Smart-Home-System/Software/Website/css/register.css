@@ -1,0 +1,131 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a00ff, #a100f2);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+.login-box {
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 15px;
+    padding-right: 40px; /* Space for the icon */
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #fff;
+    opacity: 50%;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+    opacity: 50%;
+}
+
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: #5a00d6;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.create-account {
+    display: block;
+    margin-top: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.create-account:hover {
+    text-decoration: underline;
+}
+
+/* Custom Alert Styles */
+.custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.custom-alert-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.custom-alert.hidden {
+    display: none;
+}
+
+.custom-alert p {
+    margin: 0 0 20px;
+}
+
+.custom-alert button {
+    background: #5a00d6;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

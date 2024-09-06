@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home - Temperature</title>
+    <link rel="stylesheet" href="css/fan.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Temperature</h1>
+        </header>
+
+        <div class="temperature-display">
+            <div class="circle">
+                <span>26°</span>
+            </div>
+            <p>TEMPERATURE</p>
+        </div>
+
+        <div class="fan-speed">
+            <label for="speed">FAN SPEED</label>
+            <input type="range" id="speed" name="speed" min="0" max="2" step="1">
+            <div class="speed-labels">
+                <span>Low</span>
+                <span>Mid</span>
+                <span>High</span>
+            </div>
+        </div>
+
+        <button id="fan-button">Turn Fan On</button>
+    </div>
+
+    <script src="js/fan.js"></script>
+</body>
+</html>

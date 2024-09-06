@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="css/register.css" />
+    <!-- Font Awesome for the Eye Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Firebase Setup -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyD7y4xBWgc1eEfiTpTJ7RuUh-6TLAq6LaI",
+        authDomain: "smart-home-2bd36.firebaseapp.com",
+        projectId: "smart-home-2bd36",
+        storageBucket: "smart-home-2bd36.appspot.com",
+        messagingSenderId: "957427179773",
+        appId: "1:957427179773:web:73eea37d6ccb43cdb79e94",
+        measurementId: "G-8383S2QC3K",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Export auth and signIn function to global window object
+      window.auth = auth;
+      window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="login-box">
+        <h1>Sign In</h1>
+        <form id="signinForm" class="signin">
+          <div class="input-box">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+              aria-required="true"
+              aria-label="Email"
+            />
+          </div>
+          <div class="input-box">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+              aria-required="true"
+              aria-label="Password"
+            />
+            <i
+              class="fa-regular fa-eye toggle-password"
+              onclick="togglePassword()"
+            ></i>
+          </div>
+          <button type="submit" class="btn">SIGN IN</button>
+        </form>
+        <a href="create account.html" class="create-account"
+          >CREATE AN ACCOUNT</a
+        >
+      </div>
+    </div>
+    <div id="customAlert" class="custom-alert hidden">
+      <div class="custom-alert-content">
+        <p id="alertMessage">An error occurred!</p>
+        <button onclick="hideAlert()">OK</button>
+      </div>
+    </div>
+
+    <!-- JavaScript for password toggle functionality -->
+    <script>
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.querySelector(".toggle-password");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.classList.remove("fa-eye");
+          toggleIcon.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.classList.remove("fa-eye-slash");
+          toggleIcon.classList.add("fa-eye");
+        }
+      }
+    </script>
+    <!-- Link to your JavaScript file for Firebase -->
+    <script src="js/signin.js" type="module"></script>
+  </body>
+</html>

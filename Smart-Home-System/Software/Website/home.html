@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Main Template CSS File -->
+    <link rel="stylesheet" href="css/home.css" />
+    <!-- Font Awesome Library (Optional if using icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- Firebase SDKs -->
+    <script
+      src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js"
+      type="module"
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js"
+      type="module"
+    ></script>
+
+    <!-- JavaScript Files -->
+    <script src="js/firebase.js" type="module"></script>
+  </head>
+  <body>
+    <section class="home-content" id="home">
+      <div class="welcome-section">
+        <div class="welcome-text">
+          <h1 class="header-welcome"> <!-- Hello, User --> </h1> <!-- This will be updated by Firebase -->
+          <p>
+            Welcome Home! The air quality is good & fresh. You can go out today.
+          </p>
+        </div>
+        <div class="weather-info">
+          <p>+25°C Outdoor temperature</p>
+          <p>Fuzzy cloudy weather</p>
+        </div>
+      </div>
+      <div class="grid-container">
+        <a class="grid-item" data-target="garage" href="garage.html">
+          <i class="fa-solid fa-warehouse"></i>
+          <p>Garage</p>
+        </a>
+        <a class="grid-item" data-target="fan" href="fan.html">
+          <i class="fa-solid fa-fan"></i>
+          <p>Fan</p>
+        </a>
+        <a class="grid-item" data-target="light" href="light.html">
+          <i class="fa-solid fa-lightbulb"></i>
+          <p>Light</p>
+        </a>
+        <a class="grid-item" data-target="fire" href="fire.html">
+          <i class="fa-solid fa-fire"></i>
+          <p>Fire</p>
+        </a>
+      </div>
+    </section>
+  </body>
+</html>

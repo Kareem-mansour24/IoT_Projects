@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <!-- Main Template CSS File -->
+    <link rel="stylesheet" href="css/register.css">
+    <!-- Firebase Setup -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDv-qsjhOQ8vssjwzssa39U4spRxAQi5Bs",
+        authDomain: "iott-829ca.firebaseapp.com",
+        projectId: "iott-829ca",
+        storageBucket: "iott-829ca.appspot.com",
+        messagingSenderId: "773941123486",
+        appId: "1:773941123486:web:f0b6b98c7dee496bfede8f",
+        measurementId: "G-HGW596LNE4"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Export auth and signIn function to global window object
+      window.auth = auth;
+      window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Sign In</h1>
+            <form id="signinForm" class="signin">
+                <div class="input-box">
+                    <input type="email" id="email" name="email" placeholder="Email" required aria-required="true" aria-label="Email">
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" name="password" placeholder="Password" required aria-required="true" aria-label="Password">
+                </div>
+                <button type="submit" class="btn">SIGN IN</button>
+            </form>
+            <a href="create_account.html" class="create-account">CREATE AN ACCOUNT</a>
+        </div>
+    </div>
+    
+    <!-- Link to your JavaScript file -->
+    <script src="signin.js" type="module"></script>
+</body>
+</html>
