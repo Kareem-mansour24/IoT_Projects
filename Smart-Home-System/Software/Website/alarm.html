@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm System Control</title>
+    <link rel="stylesheet" href="css/alarm.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <!-- Back button icon -->
+            <button id="back-button" class="back-button">
+                <i class="fas fa-arrow-left"></i> <!-- Font Awesome left arrow icon -->
+            </button>
+            <h1>Alarm System Control</h1>
+        </header>
+
+        <!-- Temperature Display Section -->
+        <div class="temperature-display">
+            <div class="circle">
+                <span id="temperature-value">--°</span> <!-- Placeholder for temperature -->
+            </div>
+            <p>TEMPERATURE</p>
+        </div>
+
+        <!-- Fire Alarm Status -->
+        <div class="sensor-status" id="fire-alarm-status">
+            <i class="fas fa-fire"></i>
+            <span>Fire Alarm</span>
+            <span class="status">Inactive</span>
+        </div>
+
+        <!-- Motion Sensor Status -->
+        <div class="sensor-status" id="motion-sensor-status">
+            <i class="fas fa-running"></i>
+            <span>Motion Sensor</span>
+            <span class="status">Inactive</span>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="reset-button">Reset Sensors</button>
+    </div>
+
+    <!-- Include the MQTT.js Library -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <!-- Include Your Custom JavaScript File -->
+    <script src="js/alarm.js"></script>
+</body>
+</html>

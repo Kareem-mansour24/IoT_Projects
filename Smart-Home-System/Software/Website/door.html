@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Door Control</title>
+    <link rel="stylesheet" href="css/door.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <!-- Back button icon -->
+            <button id="back-button" class="back-button">
+                <i class="fas fa-arrow-left"></i> <!-- Font Awesome left arrow icon -->
+            </button>
+            <h1>Door Control</h1>
+        </header>
+
+        <!-- Password Input Section -->
+        <div class="password-input-section">
+            <p>Enter Password</p>
+            <div class="password-display" id="password-display">****</div>
+            <div id="password-feedback" class="feedback"></div> <!-- Feedback message for password validation -->
+        </div>
+
+        <!-- Numeric Keypad -->
+        <div class="keypad">
+            <button class="keypad-button" data-number="1">1</button>
+            <button class="keypad-button" data-number="2">2</button>
+            <button class="keypad-button" data-number="3">3</button>
+            <button class="keypad-button" data-number="4">4</button>
+            <button class="keypad-button" data-number="5">5</button>
+            <button class="keypad-button" data-number="6">6</button>
+            <button class="keypad-button" data-number="7">7</button>
+            <button class="keypad-button" data-number="8">8</button>
+            <button class="keypad-button" data-number="9">9</button>
+            <button class="keypad-button" id="clear-button">Clear</button>
+            <button class="keypad-button" data-number="0">0</button>
+            <button class="keypad-button" id="submit-button">Submit</button>
+        </div>
+
+        <!-- Door Status Display -->
+        <div class="door-status" id="door-status">
+            <i id="door-icon" class="fas fa-lock"></i>
+            <span id="door-status-text">Locked</span>
+        </div>
+
+        <!-- Change Password Button -->
+        <button id="change-password-button" class="change-password-button">
+            <i class="fas fa-lock"></i> Change Password
+        </button>
+    </div>
+
+    <!-- Include the MQTT.js Library -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <!-- Include Your Custom JavaScript File -->
+    <script src="js/door.js"></script>
+</body>
+</html>

@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Home - Temperature</title>
+    <title>Smart Home - Fan Control</title>
     <link rel="stylesheet" href="css/fan.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="header">
+            <!-- Back button icon -->
+            <button id="back-button" class="back-button">
+                <i class="fas fa-arrow-left"></i> <!-- Font Awesome left arrow icon -->
+            </button>
             <h1>Temperature</h1>
         </header>
 
+        <!-- Temperature Display Section -->
         <div class="temperature-display">
             <div class="circle">
-                <span>26°</span>
+                <span id="temperature-value">--°</span> <!-- Placeholder updated by JS -->
             </div>
             <p>TEMPERATURE</p>
         </div>
 
+        <!-- Fan Speed Control Section -->
         <div class="fan-speed">
             <label for="speed">FAN SPEED</label>
             <input type="range" id="speed" name="speed" min="0" max="2" step="1">
@@ -29,9 +37,14 @@
             </div>
         </div>
 
+        <!-- Fan Power Button -->
         <button id="fan-button">Turn Fan On</button>
+        <div id="current-speed" style="display:none;"></div> <!-- Hidden for feedback messaging -->
     </div>
 
+    <!-- Include the MQTT.js Library -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <!-- Include Your Custom JavaScript File -->
     <script src="js/fan.js"></script>
 </body>
 </html>

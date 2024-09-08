@@ -1,0 +1,137 @@
+/* Reset and basic styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Work Sans', Arial, sans-serif;
+    background-color: #f3e8ff; /* Soft lavender background */
+    color: #4c3a78; /* Darker purple for text */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Header styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px; /* Space between icon and title */
+    margin-bottom: 20px;
+}
+
+/* Back button styling */
+.back-button {
+    background: none;
+    border: none;
+    color: #603cba; /* Matching the theme color */
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.back-button:hover {
+    color: #4c3a78; /* Slightly darker on hover */
+    transform: translateX(-3px); /* Slight movement on hover */
+}
+
+.back-button i {
+    margin-right: 5px;
+}
+
+/* Temperature display */
+.temperature-display {
+    margin: 20px 0;
+}
+
+.circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 8px solid #603cba;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 10px;
+    background: linear-gradient(145deg, #c7b8f9, #e8dffb);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -4px 8px rgba(255, 255, 255, 0.2) inset;
+}
+
+.circle span {
+    font-size: 34px;
+    font-weight: bold;
+    color: #4c3a78;
+}
+
+.temperature-display p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #7b4ca4;
+}
+
+/* Sensor status styling */
+.sensor-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-status i {
+    font-size: 24px;
+    color: #888;
+}
+
+.sensor-status .status {
+    font-weight: bold;
+    color: #888;
+}
+
+/* Status active styles */
+.sensor-status.active .status {
+    color: #f44336;
+}
+
+.sensor-status.active i {
+    color: #f44336;
+}
+
+/* Reset button styling */
+#reset-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+#reset-button:hover {
+    background-color: #45a049;
+}

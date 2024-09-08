@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
@@ -14,76 +14,143 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet"
     />
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js" type="module"></script>
-    
+
     <!-- JavaScript Files -->
     <script src="js/firebase.js" type="module"></script>
     <script src="js/dashboard.js" defer></script>
-  </head>
-  <body>
+</head>
+<body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-      <div class="navbar-container">
-        <a href="dashboard2.html">
-          <div class="navbar-brand">
-            <i class="fas fa-home"></i>
-            <span>Smart Home</span>
-          </div>
-        </a>
-        <div class="navbar-profile">
-          <div class="profile-info">
-            <i class="fas fa-user"></i>
-            <span class="profile-name"> <!-- Hello, User --></span> <!-- This will be updated by Firebase -->
-            <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
-          </div>
+        <div class="navbar-container">
+            <a href="dashboard.html">
+                <div class="navbar-brand">
+                    <i class="fas fa-home"></i>
+                    <span>Smart Home</span>
+                </div>
+            </a>
+            <div class="navbar-profile">
+                <div class="profile-info">
+                    <i class="fas fa-user"></i>
+                    <span class="profile-name"></span> <!-- This will be updated by Firebase -->
+                    <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
+                </div>
+            </div>
         </div>
-      </div>
     </nav>
+
+    <!-- Dashboard Layout -->
     <div class="dashboard">
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <div class="sidebar-icon active" data-target="home">
-          <i class="fas fa-home"></i>
-          <span class="icon-name">Home</span>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-icon active" data-target="home">
+                <a href="home.html">
+                    <i class="fas fa-home"></i>
+                    <span class="icon-name">Home</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="settings">
+                <i class="fas fa-cogs"></i>
+                <span class="icon-name">Settings</span>
+            </div>
+            <div class="sidebar-icon" data-target="fan">
+                <a href="fan.html">
+                    <i class="fa-solid fa-fan"></i>
+                    <span class="icon-name">Fan</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="light">
+                <a href="light.html">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span class="icon-name">Light</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="door">
+                <a href="door.html">
+                    <i class="fa-solid fa-door-closed"></i>
+                    <span class="icon-name">Door</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="alarm">
+                <a href="alarm.html">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="icon-name">Alarm System</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="pool">
+                <a href="pool.html">
+                    <i class="fa-solid fa-water-ladder"></i>
+                    <span class="icon-name">Pool</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="solar">
+                <a href="solar.html">
+                    <i class="fa-solid fa-solar-panel"></i>
+                    <span class="icon-name">Solar Panel</span>
+                </a>
+            </div>
+            <div class="sidebar-icon" data-target="info">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="icon-name">Info</span>
+            </div>
         </div>
-        <div class="sidebar-icon" data-target="settings">
-          <i class="fas fa-cogs"></i>
-          <span class="icon-name">Settings</span>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-container">
+                <!-- Fan Control Card -->
+                <div class="control-card" id="fan-control">
+                    <h2>Fan Control</h2>
+                    <button class="control-btn">Turn On/Off</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="fanSpeed">
+                </div>
+
+                <!-- Light Control Card -->
+                <div class="control-card" id="light-control">
+                    <h2>Light Control</h2>
+                    <button class="control-btn">Turn On/Off</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="lightBrightness">
+                </div>
+
+                <!-- Door Control Card -->
+                <div class="control-card" id="door-control">
+                    <h2>Door Control</h2>
+                    <button class="control-btn">Lock/Unlock</button>
+                </div>
+
+                <!-- Alarm System Card -->
+                <div class="control-card" id="alarm-control">
+                    <h2>Alarm System</h2>
+                    <button class="control-btn">Activate/Deactivate</button>
+                    <span class="status">Status: Inactive</span>
+                </div>
+
+                <!-- Pool Control Card -->
+                <div class="control-card" id="pool-control">
+                    <h2>Pool Control</h2>
+                    <button class="control-btn">Turn Lights On/Off</button>
+                    <input type="number" class="temp-input" placeholder="Set Temperature">
+                </div>
+
+                <!-- Solar Panel Status Card -->
+                <div class="control-card" id="solar-panel">
+                    <h2>Solar Panel</h2>
+                    <p>Energy Production: <span class="energy-output">0 kW</span></p>
+                    <p>Usage: <span class="energy-usage">0 kW</span></p>
+                </div>
+            </div>
         </div>
-        <div class="sidebar-icon" data-target="garage">
-          <i class="fa-solid fa-warehouse"></i>
-          <span class="icon-name">Garage</span>
-        </div>
-        <div class="sidebar-icon" data-target="fan">
-          <i class="fa-solid fa-fan"></i>
-          <span class="icon-name">Fan</span>
-        </div>
-        <div class="sidebar-icon" data-target="light">
-          <i class="fa-solid fa-lightbulb"></i>
-          <span class="icon-name">Light</span>
-        </div>
-        <div class="sidebar-icon" data-target="fire">
-          <i class="fa-solid fa-fire"></i>
-          <span class="icon-name">Fire</span>
-        </div>
-        <div class="sidebar-icon" data-target="info">
-          <i class="fa-solid fa-circle-info"></i>
-          <span class="icon-name">Info</span>
-        </div>
-      </div>
-      <!-- Main Content -->
-      <div class="main-content">
-        <!-- Content -->
-      </div>
     </div>
+
     <!-- Footer Section -->
     <footer>
-      <p>&copy; 2024 Smart Home Project</p>
+        <p>&copy; 2024 Smart Home Project</p>
     </footer>
-  </body>
+</body>
 </html>

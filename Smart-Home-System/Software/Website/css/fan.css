@@ -1,3 +1,4 @@
+/* Reset and basic styling */
 * {
     margin: 0;
     padding: 0;
@@ -5,96 +6,121 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fdf6ff;
-    color: #7b4ca4;
+    font-family: 'Work Sans', Arial, sans-serif;
+    background-color: #f3e8ff; /* Soft lavender background */
+    color: #4c3a78; /* Darker purple for text */
     height: 100vh;
-    position: relative; /* Set the positioning context for absolute positioning */
-    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Main container centering */
 .container {
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the container */
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
 }
 
-header h1 {
-    font-size: 24px;
+/* Header styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px; /* Space between icon and title */
     margin-bottom: 20px;
 }
 
+/* Temperature display */
 .temperature-display {
     margin: 20px 0;
 }
 
+/* Temperature circle */
 .circle {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 10px solid #7b4ca4;
+    border: 8px solid #603cba; /* Brightened border */
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto 10px;
+    background: linear-gradient(145deg, #c7b8f9, #e8dffb); /* Subtle gradient */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -4px 8px rgba(255, 255, 255, 0.2) inset;
 }
 
+/* Temperature text */
 .circle span {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: bold;
+    color: #4c3a78;
 }
 
+/* Label below temperature */
 .temperature-display p {
     margin: 0;
     font-size: 16px;
     font-weight: bold;
+    color: #7b4ca4;
 }
 
+/* Fan speed section */
 .fan-speed {
     margin: 20px 0;
 }
 
+/* Fan speed label */
 .fan-speed label {
-    font-size: 16px;
+    font-size: 18px;
+    color: #4c3a78;
     display: block;
     margin-bottom: 10px;
 }
 
+/* Range slider */
 input[type="range"] {
     width: 100%;
     -webkit-appearance: none;
     appearance: none;
-    height: 8px;
+    height: 10px;
     background: #ddd;
     border-radius: 5px;
     outline: none;
-    opacity: 0.7;
-    transition: opacity .2s;
+    transition: background 0.2s;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #7b4ca4;
+    width: 22px;
+    height: 22px;
+    background: #603cba;
     cursor: pointer;
     border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
 }
 
+/* Range hover effect */
 input[type="range"]:hover {
-    opacity: 1;
+    background: #c7b8f9;
 }
 
+/* Speed labels */
 .speed-labels {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     margin-top: 10px;
+    color: #4c3a78;
 }
 
+/* Fan button */
 #fan-button {
     background-color: #4CAF50;
     border: none;
@@ -107,14 +133,39 @@ input[type="range"]:hover {
     margin: 20px 0;
     cursor: pointer;
     border-radius: 8px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
 }
 
-/* Remove hover effect */
+/* Button hover */
 #fan-button:hover {
-    background-color: #4CAF50; /* Keep the button color unchanged */
+    transform: translateY(-2px);
 }
 
+/* Active state of the fan button */
 #fan-button.active {
-    background-color: #f44336; /* Red color when active */
+    background-color: #f44336;
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+}
+
+/* Back button styling */
+.back-button {
+    background: none;
+    border: none;
+    color: #603cba; /* Matching the theme color */
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+/* Hover effect for back button */
+.back-button:hover {
+    color: #4c3a78; /* Slightly darker on hover */
+    transform: translateX(-3px); /* Slight movement on hover */
+}
+
+.back-button i {
+    margin-right: 5px;
 }

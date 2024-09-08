@@ -1,0 +1,147 @@
+/* Reset and basic styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Work Sans', Arial, sans-serif;
+    background-color: #f3e8ff;
+    color: #4c3a78;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Header styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Back button styling */
+.back-button {
+    background: none;
+    border: none;
+    color: #603cba;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.back-button:hover {
+    color: #4c3a78;
+    transform: translateX(-3px);
+}
+
+.back-button i {
+    margin-right: 5px;
+}
+
+/* Password input section */
+.password-input-section p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #4c3a78;
+}
+
+.password-display {
+    padding: 14px;
+    width: 100%;
+    border: 2px solid #603cba;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+/* Feedback message styling */
+.feedback {
+    font-size: 14px;
+    margin-top: 5px;
+    height: 20px;
+    color: #f44336;
+}
+
+/* Keypad styling */
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.keypad-button {
+    background-color: #4c3a78;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.keypad-button:hover {
+    background-color: #3a2f6c;
+}
+
+/* Door status display */
+.door-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.door-status i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#door-status-text {
+    font-weight: bold;
+    color: #f44336;
+}
+
+/* Change password button */
+.change-password-button {
+    background-color: #6a1b9a;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.change-password-button:hover {
+    background-color: #5e1590;
+}
