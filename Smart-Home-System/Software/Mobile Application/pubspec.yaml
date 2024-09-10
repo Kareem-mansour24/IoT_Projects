@@ -33,6 +33,12 @@ dependencies:
   google_fonts: ^6.2.1
   mqtt_client: ^10.5.1
   font_awesome_flutter: ^10.4.0
+  firebase_core: ^2.13.0
+  firebase_auth: ^4.16.0
+  shared_preferences: ^2.0.17
+  uuid: ^3.0.7
+
+
 
 
   # The following adds the Cupertino Icons font to your application.

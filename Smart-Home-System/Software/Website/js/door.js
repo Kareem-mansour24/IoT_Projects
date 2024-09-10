@@ -1,5 +1,14 @@
+// Update with your actual username and password for the MQTT broker
+const options = {
+    username: 'faresmohamed260', // Replace with your MQTT username
+    password: '#Rmc136a1drd47r', // Replace with your MQTT password
+    clean: true, // Use a clean session to avoid issues with retained topics
+    reconnectPeriod: 1000, // Reconnect after 1 second if disconnected
+    connectTimeout: 30 * 1000, // Timeout after 30 seconds
+};
+
 // Connect to the MQTT broker using secure WebSocket (wss://)
-const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt'); // Ensure the broker URL and port are correct
+const client = mqtt.connect('wss://7723500f166547509bc34df058860232.s1.eu.hivemq.cloud:8884/mqtt', options); // Ensure the broker URL and port are correct
 
 // Initialize the door controls and MQTT connection
 function initializeDoorControl() {
@@ -25,15 +34,12 @@ function initializeDoorControl() {
     // MQTT Connection Event
     client.on('connect', () => {
         console.log('Connected to MQTT broker');
-        // Subscribe to door status topic and IR sensor topic
+        // Subscribe to the front_door topic to listen for door status changes
         client.subscribe('front_door', (err) => {
             if (err) {
                 console.error('Failed to subscribe to front_door:', err);
-            }
-        });
-        client.subscribe('ir_sensor', (err) => {
-            if (err) {
-                console.error('Failed to subscribe to ir_sensor:', err);
+            } else {
+                console.log('Subscribed to front_door topic');
             }
         });
     });
@@ -42,21 +48,10 @@ function initializeDoorControl() {
     client.on('message', (topic, message) => {
         const messageStr = message.toString().trim().toUpperCase();
 
-        switch (topic) {
-            case 'front_door':
-                doorStatus = messageStr === 'UNLOCKED' ? 'Unlocked' : 'Locked';
-                updateDoorStatus(doorStatus);
-                break;
-
-            case 'ir_sensor':
-                if (messageStr === 'CLEAR' && doorStatus === 'Unlocked' && !doorOpenedByWeb) {
-                    // IR sensor detects no person, close the door if it was opened by hardware
-                    closeDoor();
-                }
-                break;
-
-            default:
-                console.log(`Unhandled topic: ${topic}`);
+        if (topic === 'front_door') {
+            // Update door status based on the message received from the topic
+            doorStatus = messageStr === 'UNLOCKED' ? 'Unlocked' : 'Locked';
+            updateDoorStatus(doorStatus);
         }
     });
 
@@ -67,14 +62,6 @@ function initializeDoorControl() {
         doorStatusText.style.color = status === 'Unlocked' ? 'green' : 'red';
     }
 
-    // Function to close the door
-    function closeDoor() {
-        doorStatus = 'Locked';
-        updateDoorStatus(doorStatus);
-        client.publish('door_control', 'LOCK'); // Send a lock command to close the door
-        console.log('Door closed.');
-    }
-
     // Handle number press on the keypad
     keypadButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -83,12 +70,21 @@ function initializeDoorControl() {
                 passwordFeedback.textContent = ''; // Clear feedback
             } else if (button.id === 'submit-button') {
                 if (enteredPassword === correctPassword) {
-                    client.publish('unlock_button', 'LOW'); // Send unlock command
+                    // Publish UNLOCKED to the front_door topic when the door is unlocked
+                    client.publish('front_door', 'UNLOCKED', { qos: 0, retain: false }, (error) => {
+                        if (error) {
+                            console.error('Failed to publish UNLOCKED to front_door:', error);
+                        } else {
+                            console.log('Published: UNLOCKED to front_door');
+                        }
+                    });
+
                     enteredPassword = '';
                     passwordFeedback.textContent = 'Password Correct! Door Unlocked.';
                     passwordFeedback.style.color = 'green';
                     updateDoorStatus('Unlocked'); // Update status locally
                     doorOpenedByWeb = true; // Mark that the door was opened by the web page
+
                     // Close the door automatically after 2 seconds
                     setTimeout(() => {
                         closeDoor();
@@ -106,6 +102,14 @@ function initializeDoorControl() {
         });
     });
 
+    // Function to close the door
+    function closeDoor() {
+        doorStatus = 'Locked';
+        updateDoorStatus(doorStatus);
+        client.publish('front_door', 'LOCKED'); // Publish LOCKED when the door is closed
+        console.log('Door closed and LOCKED message published.');
+    }
+
     // Handle back button click to navigate back to the previous page
     backButton.addEventListener('click', () => {
         window.location.href = 'dashboard2.html'; // Update this URL to your actual home page or previous page
@@ -113,7 +117,7 @@ function initializeDoorControl() {
 
     // Handle change password button click (Placeholder for navigation)
     changePasswordButton.addEventListener('click', () => {
-        alert('Change Password page would be navigated here.'); // Update this to actual navigation if needed
+        window.location.href = 'change_door_password.html'; // Update this to actual navigation if needed
     });
 }
 

@@ -1,28 +1,16 @@
+// fan.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'mqtt_service_v2.dart'; // Use the correct MQTT service implementation
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class FanControlPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TemperatureControlPage(),
-    );
-  }
+  _FanControlPageState createState() => _FanControlPageState();
 }
 
-class TemperatureControlPage extends StatefulWidget {
-  @override
-  _TemperatureControlPageState createState() => _TemperatureControlPageState();
-}
-
-class _TemperatureControlPageState extends State<TemperatureControlPage> {
-  final MQTTServiceV2 mqttService = MQTTServiceV2(); // Updated to MQTTServiceV2
-  double _fanSpeedValue = 1;
+class _FanControlPageState extends State<FanControlPage> {
+  final MQTTServiceV2 mqttService = MQTTServiceV2();
+  double _fanSpeedValue = 1; // Default fan speed (Medium)
   bool isFanOn = false;
   bool isConnected = false;
 
@@ -32,38 +20,59 @@ class _TemperatureControlPageState extends State<TemperatureControlPage> {
     _connectToMQTT(); // Connect to MQTT broker on initialization
   }
 
-  // Connect to MQTT broker using MQTTServiceV2
+  // Connect to MQTT broker and handle connection status
   Future<void> _connectToMQTT() async {
     isConnected = await mqttService.connect(
       username: 'faresmohamed260',
       password: '#Rmc136a1drd47r',
     );
     setState(() {
-      if (isConnected) {
-        print('Successfully connected to MQTT broker');
+      if (!isConnected) {
+        _showStatusDialog(
+          'MQTT Connection Failed',
+          'Could not connect to the MQTT broker.',
+          isError: true,
+        );
       } else {
-        print('Failed to connect to MQTT broker');
+        _subscribeToTopics(); // Subscribe to fan state topics after successful connection
       }
     });
+  }
 
-    // Subscribe to relevant topics
-    if (isConnected) {
-      mqttService.subscribeToTopic('fan_power', _onMessageReceived);
-      mqttService.subscribeToTopic('fan_speed', _onMessageReceived);
-    }
+  // Subscribe to relevant MQTT topics
+  void _subscribeToTopics() {
+    mqttService.subscribeToTopic('fan_state_topic', _onMessageReceived);
+    mqttService.subscribeToTopic('fan_speed', _onMessageReceived);
   }
 
   // Handle incoming messages from MQTT
   void _onMessageReceived(String topic, String message) {
     print('Received message: $message from topic: $topic');
-    // You can handle specific topic messages here if needed
+    setState(() {
+      if (topic == 'fan_state_topic') {
+        isFanOn = message.toLowerCase() == 'on'; // Update fan status
+      } else if (topic == 'fan_speed') {
+        // Update fan speed based on received message
+        switch (message.toUpperCase()) {
+          case 'LOW':
+            _fanSpeedValue = 0;
+            break;
+          case 'MEDIUM':
+            _fanSpeedValue = 1;
+            break;
+          case 'HIGH':
+            _fanSpeedValue = 2;
+            break;
+        }
+      }
+    });
   }
 
-  // Toggle fan on/off and publish 'LOW' to MQTT
+  // Toggle fan on/off and publish the state to MQTT
   void _toggleFan() {
     setState(() {
       isFanOn = !isFanOn;
-      mqttService.publishMessage('fan_power', 'LOW'); // Publish ON/OFF based on state
+      mqttService.publishMessage('fan_state_topic', isFanOn ? 'ON' : 'OFF');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(isFanOn ? 'Fan turned ON' : 'Fan turned OFF'),
@@ -88,6 +97,43 @@ class _TemperatureControlPageState extends State<TemperatureControlPage> {
     });
   }
 
+  // Show status dialog with customizable messages
+  void _showStatusDialog(String title, String content, {bool isError = false}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(
+              isError ? Icons.error : Icons.check_circle,
+              color: isError ? Colors.red : Colors.green,
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Text(
+            content,
+            style: TextStyle(fontSize: 14),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void dispose() {
     mqttService.disconnect(); // Disconnect from MQTT when leaving the screen
@@ -96,28 +142,21 @@ class _TemperatureControlPageState extends State<TemperatureControlPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Detect current theme mode
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Fan Control',
           style: GoogleFonts.lato(
-            color: Colors.black,
+            color: isDarkMode ? Colors.white : Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        foregroundColor: isDarkMode ? Colors.white : Colors.black,
         elevation: 2,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          Icon(Icons.more_vert, color: Colors.black),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -133,6 +172,7 @@ class _TemperatureControlPageState extends State<TemperatureControlPage> {
               _changeFanSpeed,
               divisions: 2,
               labels: ["LOW", "MEDIUM", "HIGH"],
+              textColor: isDarkMode ? Colors.white : Colors.black, // Adjust text color based on theme
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -152,6 +192,7 @@ class _TemperatureControlPageState extends State<TemperatureControlPage> {
     );
   }
 
+  // Build slider for fan speed control
   Widget _buildSlider(
       String title,
       double value,
@@ -160,13 +201,18 @@ class _TemperatureControlPageState extends State<TemperatureControlPage> {
       ValueChanged<double> onChanged, {
         int? divisions,
         List<String>? labels,
+        required Color textColor, // Added text color parameter
       }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+          style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
         Slider(
           value: value,

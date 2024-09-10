@@ -1,6 +1,7 @@
+// light.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'mqtt_service.dart'; // Import your MQTT service
+import 'mqtt_service.dart'; // Ensure you are using the correct MQTT service
 
 class LightPage extends StatefulWidget {
   @override
@@ -20,17 +21,18 @@ class _LightPageState extends State<LightPage> {
     _connectToMQTT(); // Connect to MQTT broker on initialization
   }
 
-  // Connect to MQTT broker using MQTTService
   Future<void> _connectToMQTT() async {
     isConnected = await mqttService.connect(
-        username: 'faresmohamed260',
-        password: '#Rmc136a1drd47r'
+      username: 'faresmohamed260',
+      password: '#Rmc136a1drd47r',
     );
     setState(() {
-      if (isConnected) {
-        print('Successfully connected to MQTT broker');
-      } else {
-        print('Failed to connect to MQTT broker');
+      if (!isConnected) {
+        _showStatusDialog(
+          'MQTT Connection Failed',
+          'Could not connect to the MQTT broker.',
+          isError: true,
+        );
       }
     });
   }
@@ -79,6 +81,43 @@ class _LightPageState extends State<LightPage> {
     });
   }
 
+  // Show status dialog with customizable messages
+  void _showStatusDialog(String title, String content, {bool isError = false}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(
+              isError ? Icons.error : Icons.check_circle,
+              color: isError ? Colors.red : Colors.green,
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Text(
+            content,
+            style: TextStyle(fontSize: 14),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void dispose() {
     mqttService.disconnect(); // Disconnect from MQTT when leaving the screen
@@ -87,47 +126,47 @@ class _LightPageState extends State<LightPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Detect current theme mode
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Light Control',
-          style: GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.bold),
+          style: GoogleFonts.lato(
+            color: isDarkMode ? Colors.white : Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        foregroundColor: isDarkMode ? Colors.white : Colors.black,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Front Door Light Control
             _buildLightControl(
               title: 'Front Door Light',
               isLightOn: isFrontDoorLightOn,
               onToggle: isConnected ? _toggleFrontDoorLight : null,
+              textColor: isDarkMode ? Colors.white : Colors.black, // Adjust text color based on theme
             ),
             SizedBox(height: 20),
-            // Room Light Control
             _buildLightControl(
               title: 'Room Light',
               isLightOn: isRoomLightOn,
               onToggle: isConnected ? _toggleRoomLight : null,
+              textColor: isDarkMode ? Colors.white : Colors.black, // Adjust text color based on theme
             ),
             SizedBox(height: 20),
-            // Master Control for All Lights
             _buildLightControl(
               title: 'All Lights',
               isLightOn: areAllLightsOn,
               onToggle: isConnected ? _toggleAllLights : null,
+              textColor: isDarkMode ? Colors.white : Colors.black, // Adjust text color based on theme
             ),
           ],
         ),
@@ -140,6 +179,7 @@ class _LightPageState extends State<LightPage> {
     required String title,
     required bool isLightOn,
     required VoidCallback? onToggle,
+    required Color textColor, // Added text color parameter
   }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -155,7 +195,7 @@ class _LightPageState extends State<LightPage> {
           style: GoogleFonts.lato(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: isLightOn ? Colors.black : Colors.black54,
+            color: textColor, // Use the text color based on the theme
           ),
         ),
         trailing: ElevatedButton(

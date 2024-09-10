@@ -1,5 +1,14 @@
+// Update with your actual username and password for the MQTT broker
+const options = {
+    username: 'faresmohamed260', // Replace with your MQTT username
+    password: '#Rmc136a1drd47r', // Replace with your MQTT password
+    clean: true, // Use a clean session to avoid issues with retained topics
+    reconnectPeriod: 1000, // Reconnect after 1 second if disconnected
+    connectTimeout: 30 * 1000, // Timeout after 30 seconds
+};
+
 // Connect to the MQTT broker using secure WebSocket (wss://)
-const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt'); // Ensure the broker URL and port are correct
+const client = mqtt.connect('wss://7723500f166547509bc34df058860232.s1.eu.hivemq.cloud:8884/mqtt', options); // Ensure the broker URL and port are correct
 
 // Initialize the alarm controls and MQTT connection
 function initializeAlarmSystem() {

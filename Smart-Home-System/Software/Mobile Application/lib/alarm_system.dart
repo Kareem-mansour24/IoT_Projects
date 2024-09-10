@@ -1,3 +1,4 @@
+// alarm_system.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'mqtt_service.dart'; // Ensure you are using the correct MQTT service
@@ -29,11 +30,14 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
       password: '#Rmc136a1drd47r',
     );
     setState(() {
-      if (isConnected) {
-        print('Successfully connected to MQTT broker');
-        _subscribeToTopics(); // Subscribe to all relevant topics after successful connection
+      if (!isConnected) {
+        _showStatusDialog(
+          'MQTT Connection Failed',
+          'Could not connect to the MQTT broker.',
+          isError: true,
+        );
       } else {
-        print('Failed to connect to MQTT broker');
+        _subscribeToTopics(); // Subscribe to all relevant topics after successful connection
       }
     });
   }
@@ -52,7 +56,6 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
     setState(() {
       switch (topic) {
         case 'fire_alarm':
-        // Check for specific fire alarm messages
           if (message.trim().toUpperCase() == 'LOW') {
             isFireDetected = true;
             _showAlert(
@@ -66,7 +69,6 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
           break;
 
         case 'security_alarm':
-        // Check for specific security alarm messages
           if (message.trim().toUpperCase() == 'LOW') {
             isMotionDetected = true;
             _showAlert(
@@ -80,7 +82,6 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
           break;
 
         case 'dht':
-        // Handle temperature messages
           try {
             double temperature = double.parse(message.trim());
             _currentTemperature = temperature;
@@ -120,6 +121,43 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
     );
   }
 
+  // Show status dialog with customizable messages
+  void _showStatusDialog(String title, String content, {bool isError = false}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(
+              isError ? Icons.error : Icons.check_circle,
+              color: isError ? Colors.red : Colors.green,
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Text(
+            content,
+            style: TextStyle(fontSize: 14),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   // Publish to the "online_reset_button" topic and reset sensor states
   void _publishReset() {
     mqttService.publishMessage('online_reset_button', 'LOW');
@@ -144,14 +182,20 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Detect current theme mode
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Alarm System Control',
-          style: GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.bold),
+          style: GoogleFonts.lato(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        foregroundColor: isDarkMode ? Colors.white : Colors.black,
         elevation: 2,
         centerTitle: true,
       ),
@@ -170,31 +214,30 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
+                color: isDarkMode ? Colors.white : Colors.purple, // Adjust text color
               ),
             ),
             Text(
               "TEMPERATURE",
-              style: TextStyle(fontSize: 16, color: Colors.purple),
+              style: TextStyle(fontSize: 16, color: isDarkMode ? Colors.white : Colors.purple), // Adjust text color
             ),
             SizedBox(height: 20),
-            // Fire System Status (Combined Flame and Smoke)
             _buildSensorCard(
               title: 'Fire Alarm',
               isActive: isFireDetected,
               icon: Icons.local_fire_department,
               activeColor: Colors.red,
+              textColor: isDarkMode ? Colors.white : Colors.black, // Adjust text color
             ),
             SizedBox(height: 20),
-            // Motion Sensor Status
             _buildSensorCard(
               title: 'Security Alarm',
               isActive: isMotionDetected,
               icon: Icons.motion_photos_on,
               activeColor: Colors.orange,
+              textColor: isDarkMode ? Colors.white : Colors.black, // Adjust text color
             ),
             SizedBox(height: 20),
-            // Reset Button
             ElevatedButton(
               onPressed: _publishReset,
               style: ElevatedButton.styleFrom(
@@ -225,6 +268,7 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
     required bool isActive,
     required IconData icon,
     required Color activeColor,
+    required Color textColor, // Added text color parameter
   }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -240,7 +284,7 @@ class _AlarmSystemPageState extends State<AlarmSystemPage> {
           style: GoogleFonts.lato(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: isActive ? activeColor : Colors.black54,
+            color: isActive ? activeColor : textColor, // Use the text color based on the theme
           ),
         ),
         trailing: Icon(

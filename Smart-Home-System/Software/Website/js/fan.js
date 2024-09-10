@@ -1,16 +1,39 @@
-// Connect to the MQTT broker using secure WebSocket (wss://)
-const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt'); // Ensure the broker URL and port are correct
+// Update with your actual username and password for the MQTT broker
+const options = {
+    username: 'faresmohamed260', // Replace with your MQTT username
+    password: '#Rmc136a1drd47r', // Replace with your MQTT password
+    clean: true, // Use a clean session to avoid issues with retained topics
+    reconnectPeriod: 1000, // Reconnect after 1 second if disconnected
+    connectTimeout: 30 * 1000, // Timeout after 30 seconds
+};
+
+// Connect to the MQTT broker using the TLS WebSocket URL and credentials
+const client = mqtt.connect('wss://7723500f166547509bc34df058860232.s1.eu.hivemq.cloud:8884/mqtt', options);
+
+// Function to publish messages with error handling
+function publishMessage(topic, message) {
+    if (client.connected) {
+        client.publish(topic, message, { qos: 0, retain: false }, (error) => {
+            if (error) {
+                console.error(`Failed to publish message to ${topic}:`, error);
+            } else {
+                console.log(`Published: ${message} to topic ${topic}`);
+            }
+        });
+    } else {
+        console.warn('MQTT client is not connected. Unable to publish message:', message);
+    }
+}
 
 // Initialize the fan controls and MQTT connection
 function initialize_fan() {
     const button = document.getElementById("fan-button");
     const speedControl = document.getElementById("speed");
     const currentSpeedDisplay = document.getElementById("current-speed"); // Feedback element for fan speed
-    const temperatureDisplay = document.getElementById("temperature-value"); // Element to display temperature
     const backButton = document.getElementById("back-button"); // Back button element
 
     // Check if elements exist before using them
-    if (!button || !speedControl || !currentSpeedDisplay || !temperatureDisplay || !backButton) {
+    if (!button || !speedControl || !currentSpeedDisplay || !backButton) {
         console.error('One or more elements are missing from the DOM.');
         return;
     }
@@ -21,12 +44,12 @@ function initialize_fan() {
         currentSpeedDisplay.textContent = 'Connected to MQTT broker';
         currentSpeedDisplay.classList.add('connected');
 
-        // Subscribe to the 'dht' topic for temperature updates
-        client.subscribe('dht', (err) => {
+        // Subscribe to the necessary topics including fan state and speed
+        client.subscribe(['fan_state_topic', 'fan_speed'], (err) => {
             if (err) {
-                console.error('Failed to subscribe to the dht topic:', err);
+                console.error('Failed to subscribe to topics:', err);
             } else {
-                console.log('Subscribed to the dht topic');
+                console.log('Subscribed to fan_state_topic, and fan_speed');
             }
         });
     });
@@ -52,56 +75,66 @@ function initialize_fan() {
 
     // Handle incoming messages from subscribed topics
     client.on('message', (topic, message) => {
-        if (topic === 'dht') {
-            const tempValue = parseFloat(message.toString());
-            console.log(`Received temperature: ${tempValue}°C`);
-            temperatureDisplay.textContent = `${tempValue}°`; // Update the temperature display
-            updateTemperatureGraph(tempValue); // Call function to update graph with the new temperature
+        const messageText = message.toString().toLowerCase();
+
+        // Fan state updates from any source (web/mobile)
+        if (topic === 'fan_state_topic') {
+            console.log(`Received fan state update: ${messageText}`);
+
+            // Sync button state with received message
+            if (messageText === 'on') {
+                button.textContent = "Turn Fan Off";
+                button.classList.add("active");
+                currentSpeedDisplay.textContent = 'Fan is ON'; // Update status display
+            } else if (messageText === 'off') {
+                button.textContent = "Turn Fan On";
+                button.classList.remove("active");
+                currentSpeedDisplay.textContent = 'Fan is OFF'; // Update status display
+            }
+        }
+
+        // Handle speed updates from any source
+        if (topic === 'fan_speed') {
+            let speedLabel = messageText.toUpperCase();
+            document.querySelector(".fan-speed label").textContent = `FAN SPEED: ${speedLabel}`;
+            currentSpeedDisplay.textContent = `Fan is ON, Speed: ${speedLabel}`;
+            console.log(`Fan speed updated to: ${speedLabel}`);
         }
     });
 
-    // Handle button click to turn the fan on/off
+    // Handle button click to turn the fan on/off and sync state
     button.addEventListener("click", function () {
         if (button.textContent === "Turn Fan On") {
+            publishMessage('fan_state_topic', 'on'); // Sync state across devices
             button.textContent = "Turn Fan Off";
             button.classList.add("active");
-            client.publish('fan_power', 'LOW'); // Publish the "low" state when turning on
-            console.log('Published: LOW to topic fan_power');
-            currentSpeedDisplay.textContent = 'Fan is ON, Speed: Low'; // Display current state
+            currentSpeedDisplay.textContent = 'Fan is ON';
         } else {
+            publishMessage('fan_state_topic', 'off'); // Sync state across devices
             button.textContent = "Turn Fan On";
             button.classList.remove("active");
-            client.publish('fan_power', 'LOW'); // Publish "off" when turning off
-            console.log('Published: LOW to topic fan_power');
-            currentSpeedDisplay.textContent = 'Fan is OFF'; // Display off state
+            currentSpeedDisplay.textContent = 'Fan is OFF';
         }
     });
 
     // Handle fan speed change
     speedControl.addEventListener("input", function () {
         const value = parseInt(this.value);
-        let speedLabel = "";
-        let speedMessage = "";
+        let speedMessage = '';
 
         switch (value) {
             case 0:
-                speedLabel = "LOW";
-                speedMessage = "LOW"; // Publish "low" when speed is set to low
+                speedMessage = "low";
                 break;
             case 1:
-                speedLabel = "MEDIUM";
-                speedMessage = "MEDIUM"; // Publish "mid" when speed is set to mid
+                speedMessage = "medium";
                 break;
             case 2:
-                speedLabel = "HIGH";
-                speedMessage = "HIGH"; // Publish "high" when speed is set to high
+                speedMessage = "high";
                 break;
         }
 
-        document.querySelector(".fan-speed label").textContent = `FAN SPEED: ${speedLabel}`;
-        currentSpeedDisplay.textContent = `Fan is ON, Speed: ${speedLabel}`; // Update current speed display
-        client.publish('fan_speed', speedMessage); // Publish speed to 'fan_speed' topic
-        console.log(`Published: ${speedMessage} to topic fan_speed`);
+        publishMessage('fan_speed', speedMessage); // Publish speed to 'fan_speed' topic
     });
 
     // Handle back button click to navigate back to the home page
