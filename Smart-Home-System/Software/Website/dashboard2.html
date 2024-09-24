@@ -20,8 +20,12 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js" type="module"></script>
+    
+    <!-- Include the MQTT.js Library -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 
     <!-- JavaScript Files -->
+     
     <script src="js/firebase.js" type="module"></script>
     <script src="js/dashboard.js" defer></script>
 </head>
@@ -50,57 +54,42 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-icon active" data-target="home">
-                <a href="home.html">
                     <i class="fas fa-home"></i>
                     <span class="icon-name">Home</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="settings">
                 <i class="fas fa-cogs"></i>
                 <span class="icon-name">Settings</span>
             </div>
             <div class="sidebar-icon" data-target="fan">
-                <a href="fan.html">
                     <i class="fa-solid fa-fan"></i>
                     <span class="icon-name">Fan</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="light">
-                <a href="light.html">
                     <i class="fa-solid fa-lightbulb"></i>
                     <span class="icon-name">Light</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="door">
-                <a href="door.html">
                     <i class="fa-solid fa-door-closed"></i>
                     <span class="icon-name">Door</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="alarm">
-                <a href="alarm.html">
                     <i class="fa-solid fa-bell"></i>
                     <span class="icon-name">Alarm System</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="pool">
-                <a href="pool.html">
                     <i class="fa-solid fa-water-ladder"></i>
                     <span class="icon-name">Pool</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="solar">
-                <a href="solar.html">
                     <i class="fa-solid fa-solar-panel"></i>
                     <span class="icon-name">Solar Panel</span>
-                </a>
             </div>
             <div class="sidebar-icon" data-target="info">
                 <i class="fa-solid fa-circle-info"></i>
                 <span class="icon-name">Info</span>
             </div>
         </div>
-
         <!-- Main Content -->
         <div class="main-content">
             <div class="content-container">

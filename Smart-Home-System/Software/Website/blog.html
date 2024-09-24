@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Home Automation: A Guide</title>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/blog.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+</head>
+
+<body>
+    <!-- Blog Page Header -->
+    <header class="blog-header">
+        <div class="container">
+            <h1>Smart Home Automation: A Comprehensive Guide</h1>
+            <p class="subheading">Learn how to set up a smart home system using ESP32 and various sensors for a fully automated experience.</p>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <section class="blog-content container">
+        <article>
+            <h2>Introduction</h2>
+            <p>Smart home automation has gained significant traction in recent years. Using the ESP32 microcontroller, you can automate household devices like lighting, fans, and doors. In this guide, we’ll explore the basics of setting up a smart home system and integrating various sensors for automation.</p>
+
+            <h2>Why ESP32 for Home Automation?</h2>
+            <p>The ESP32 is a low-cost, low-power microcontroller with built-in WiFi and Bluetooth capabilities, making it ideal for IoT applications. Whether it’s controlling devices remotely or integrating sensors like temperature, smoke detectors, and motion sensors, the ESP32 offers robust solutions for smart home automation.</p>
+
+            <h3>Key Features of ESP32:</h3>
+            <ul>
+                <li>Built-in WiFi and Bluetooth for wireless connectivity</li>
+                <li>Low power consumption</li>
+                <li>Support for multiple sensors and peripherals</li>
+                <li>Programmable with the Arduino IDE</li>
+            </ul>
+
+            <h2>Step-by-Step Guide to Building Your Smart Home System</h2>
+            <p>Here’s a simple breakdown of the steps involved in setting up your own smart home system with ESP32:</p>
+
+            <h3>1. Setting Up the ESP32</h3>
+            <p>Start by installing the ESP32 board in the Arduino IDE. Connect your ESP32 to your computer and open the Arduino IDE. Go to File > Preferences and add the following URL in the “Additional Boards Manager URLs” field:</p>
+            <a href="https://dl.espressif.com/dl/package_esp32_index.json" target="_blank"><pre>https://dl.espressif.com/dl/package_esp32_index.json</pre></a>
+
+            <h3>2. Adding Sensors and Actuators</h3>
+            <p>Connect sensors like the DHT11 for temperature, an MQ-2 for smoke detection, and a PIR motion sensor for motion detection. You can also add actuators like relays to control lights or a servo motor for automated door systems.</p>
+
+            <h3>3. Connecting to WiFi and Firebase</h3>
+            <p>Use the ESP32’s built-in WiFi to connect to your home network and Firebase for real-time monitoring and control. This allows you to remotely access your system from anywhere using a web app or mobile app.</p>
+
+            <h2>Conclusion</h2>
+            <p>With an ESP32 and some sensors, you can create a fully automated smart home system. From controlling devices to monitoring your home’s environment, this powerful microcontroller can bring advanced automation to your living space. Keep experimenting with different sensors and functionalities to expand your smart home system.</p>
+
+            <div class="blog-footer">
+                <p>Written by Abdallah Osama</p>
+            </div>
+        </article>
+    </section>
+
+</body>
+</html>

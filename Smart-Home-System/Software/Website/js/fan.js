@@ -45,11 +45,11 @@ function initialize_fan() {
         currentSpeedDisplay.classList.add('connected');
 
         // Subscribe to the necessary topics including fan state and speed
-        client.subscribe(['fan_state_topic', 'fan_speed'], (err) => {
+        client.subscribe(['fan_state', 'fan_speed'], (err) => {
             if (err) {
                 console.error('Failed to subscribe to topics:', err);
             } else {
-                console.log('Subscribed to fan_state_topic, and fan_speed');
+                console.log('Subscribed to fan_state, and fan_speed');
             }
         });
     });
@@ -78,7 +78,7 @@ function initialize_fan() {
         const messageText = message.toString().toLowerCase();
 
         // Fan state updates from any source (web/mobile)
-        if (topic === 'fan_state_topic') {
+        if (topic === 'fan_state') {
             console.log(`Received fan state update: ${messageText}`);
 
             // Sync button state with received message
@@ -105,12 +105,12 @@ function initialize_fan() {
     // Handle button click to turn the fan on/off and sync state
     button.addEventListener("click", function () {
         if (button.textContent === "Turn Fan On") {
-            publishMessage('fan_state_topic', 'on'); // Sync state across devices
+            publishMessage('fan_power', 'LOW'); // Sync state across devices
             button.textContent = "Turn Fan Off";
             button.classList.add("active");
             currentSpeedDisplay.textContent = 'Fan is ON';
         } else {
-            publishMessage('fan_state_topic', 'off'); // Sync state across devices
+            publishMessage('fan_power', 'LOW'); // Sync state across devices
             button.textContent = "Turn Fan On";
             button.classList.remove("active");
             currentSpeedDisplay.textContent = 'Fan is OFF';
@@ -124,13 +124,13 @@ function initialize_fan() {
 
         switch (value) {
             case 0:
-                speedMessage = "low";
+                speedMessage = "LOW";
                 break;
             case 1:
-                speedMessage = "medium";
+                speedMessage = "MEDIUM";
                 break;
             case 2:
-                speedMessage = "high";
+                speedMessage = "HIGH";
                 break;
         }
 

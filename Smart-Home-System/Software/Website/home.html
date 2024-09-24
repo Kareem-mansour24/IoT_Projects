@@ -22,21 +22,24 @@
         type="module"
     ></script>
 
+    <!-- Include the MQTT.js Library -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
+
     <!-- JavaScript Files -->
     <script src="js/firebase.js" type="module"></script>
+    <script src="js/home.js" type="module"></script>
+    </head>
 </head>
 <body>
     <section class="home-content" id="home">
         <div class="welcome-section">
             <div class="welcome-text">
-                <h1 class="header-welcome"> <!-- Hello, User --> </h1> <!-- This will be updated by Firebase -->
-                <p>
-                    Welcome Home! The air quality is good & fresh. You can go out today.
-                </p>
+                <h1 class="header-welcome"> <!-- Hello, User --> </h1>
+                <p>Welcome Home! The air quality is good & fresh. You can go out today.</p>
             </div>
             <div class="weather-info">
-                <p>+25°C Outdoor temperature</p>
-                <p>Fuzzy cloudy weather</p>
+                <p> --°C Outdoor temperature</p> <!-- Placeholder for temperature -->
             </div>
         </div>
         <div class="grid-container">
@@ -66,5 +69,4 @@
             </a>
         </div>
     </section>
-</body>
-</html>
+</body></html>

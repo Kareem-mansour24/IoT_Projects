@@ -10,20 +10,24 @@ body {
     background-color: #f3e8ff; /* Soft lavender background */
     color: #4c3a78; /* Darker purple for text */
     height: 100vh;
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 /* Main container centering */
 .container {
-    text-align: center;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center container */
 }
 
 /* Header styling */

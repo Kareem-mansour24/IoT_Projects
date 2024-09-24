@@ -71,11 +71,11 @@ function initializeDoorControl() {
             } else if (button.id === 'submit-button') {
                 if (enteredPassword === correctPassword) {
                     // Publish UNLOCKED to the front_door topic when the door is unlocked
-                    client.publish('front_door', 'UNLOCKED', { qos: 0, retain: false }, (error) => {
+                    client.publish('unlock_button', 'LOW', { qos: 0, retain: false }, (error) => {
                         if (error) {
                             console.error('Failed to publish UNLOCKED to front_door:', error);
                         } else {
-                            console.log('Published: UNLOCKED to front_door');
+                            console.log('Published: LOW to unlock_button');
                         }
                     });
 
@@ -87,7 +87,6 @@ function initializeDoorControl() {
 
                     // Close the door automatically after 2 seconds
                     setTimeout(() => {
-                        closeDoor();
                         doorOpenedByWeb = false; // Reset the flag after closing
                     }, 2000);
                 } else {
@@ -101,14 +100,6 @@ function initializeDoorControl() {
             passwordDisplay.textContent = enteredPassword ? '*'.repeat(enteredPassword.length) : '****';
         });
     });
-
-    // Function to close the door
-    function closeDoor() {
-        doorStatus = 'Locked';
-        updateDoorStatus(doorStatus);
-        client.publish('front_door', 'LOCKED'); // Publish LOCKED when the door is closed
-        console.log('Door closed and LOCKED message published.');
-    }
 
     // Handle back button click to navigate back to the previous page
     backButton.addEventListener('click', () => {

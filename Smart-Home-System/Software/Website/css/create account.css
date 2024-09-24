@@ -95,6 +95,18 @@ button:hover {
     transform: translateY(-2px);
 }
 
+.signin {
+    display: block;
+    margin-top: 20px;
+    color: #a389d9;
+    text-decoration: none;
+    text-align: center;
+}
+
+.signin:hover {
+    text-decoration: underline;
+}
+
 /* Custom Alert Box Styling */
 .custom-alert {
     position: fixed;

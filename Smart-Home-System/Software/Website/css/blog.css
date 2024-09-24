@@ -1,0 +1,147 @@
+/* General Reset and Body Styles */
+body {
+    font-family: 'Work Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.blog-header {
+    background: #563d7c;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.blog-header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.blog-header .subheading {
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+/* Blog Content Styles */
+.blog-content {
+    margin: 20px 0;
+}
+
+.blog-content h2 {
+    color: #563d7c;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.blog-content h3 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #333;
+}
+
+.blog-content p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.blog-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.blog-content ul li {
+    margin-bottom: 10px;
+}
+
+.blog-footer {
+    margin-top: 40px;
+    font-style: italic;
+    color: #666;
+}
+
+/* Comments Section Styles */
+.comments {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.comments h2 {
+    margin-top: 0;
+    color: #563d7c;
+}
+
+.comments .form-group {
+    margin-bottom: 15px;
+}
+
+.comments label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.comments input[type="text"],
+.comments textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.comments textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.comments .btn-submit {
+    background: #563d7c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease;
+}
+
+.comments .btn-submit:hover {
+    background: #563d7c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .blog-header h1 {
+        font-size: 2em;
+    }
+
+    .blog-header .subheading {
+        font-size: 1em;
+    }
+
+    .blog-content h2 {
+        font-size: 1.8em;
+    }
+
+    .blog-content h3 {
+        font-size: 1.4em;
+    }
+}

@@ -8,7 +8,7 @@ const options = {
 };
 
 // Connect to the MQTT broker using secure WebSocket (wss://)
-const client = mqtt.connect('wss://7723500f166547509bc34df058860232.s1.eu.hivemq.cloud:8884/mqtt', options); // Ensure the broker URL and port are correct
+const client = mqtt.connect('wss://836d265158fe407b82c0c60afc009fad.s1.eu.hivemq.cloud:8884/mqtt', options); // Ensure the broker URL and port are correct
 
 // Initialize the alarm controls and MQTT connection
 function initializeAlarmSystem() {

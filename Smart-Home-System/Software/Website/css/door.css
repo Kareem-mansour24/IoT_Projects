@@ -10,19 +10,24 @@ body {
     background-color: #f3e8ff;
     color: #4c3a78;
     height: 100vh;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
 
 .container {
-    text-align: center;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center container */
 }
 
 /* Header styling */

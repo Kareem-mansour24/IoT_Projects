@@ -3,6 +3,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const links = document.querySelectorAll(".sidebar-icon");
     const contentArea = document.querySelector(".main-content");
+    
+    // MQTT setup
+    const mqttOptions = {
+        username: 'faresmohamed260', // Replace with your MQTT username
+        password: '#Rmc136a1drd47r', // Replace with your MQTT password
+        clean: true, // Use a clean session to avoid issues with retained topics
+        reconnectPeriod: 1000, // Reconnect after 1 second if disconnected
+        connectTimeout: 30 * 1000, // Timeout after 30 seconds
+    };
+    const mqttClient = mqtt.connect('wss://7723500f166547509bc34df058860232.s1.eu.hivemq.cloud:8884/mqtt', mqttOptions);
+    
+    mqttClient.on('connect', () => {
+        console.log('Connected to MQTT broker');
+        mqttClient.subscribe('dht', (err) => {
+            if (err) {
+                console.error('Failed to subscribe to dht:', err);
+            }
+        });
+    });
+
+    mqttClient.on('message', (topic, message) => {
+        if (topic === 'dht') {
+            const tempValue = parseFloat(message.toString().trim());
+            if (!isNaN(tempValue)) {
+                // Handle temperature display update (assuming you have an element for this)
+                const temperatureDisplay = document.querySelector('.weather-info p');
+                if (temperatureDisplay) {
+                    temperatureDisplay.textContent = `${tempValue.toFixed(1)}°C Outdoor temperature`;
+                }
+            }
+        }
+    });
 
     // Check if any sidebar icons are found
     if (links.length === 0) {

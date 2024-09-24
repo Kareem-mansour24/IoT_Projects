@@ -3,8 +3,8 @@ body {
   margin: 0;
   font-family: "Work Sans", sans-serif;
   background-color: #f4f6fa;
-  /* display: flex; */
   height: 100vh;
+  overflow: hidden; /* Prevents scrollbars from appearing on the body */
 }
 
 /* Navbar Styles */
@@ -25,8 +25,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  max-width: 1200px;
+  width: calc(100% - 100px);
   padding: 0 20px;
 }
 
@@ -80,34 +79,17 @@ body {
   color: #563d7c;
   border: none;
   margin-left: 20px;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
 .sign-out-btn:hover {
   background-color: #ddd;
   color: #563d7c;
-}
-
-.navbar-menu {
-  display: none;
-}
-
-.navbar-menu li {
-  font-size: 18px;
-}
-
-.navbar-menu li a {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s ease;
-}
-
-.navbar-menu li a:hover {
-  color: #ccc;
 }
 
 /* Dashboard Styles */
@@ -133,14 +115,14 @@ body {
 }
 
 .sidebar:hover {
-  width: 150px; /* Expanded width */
+  width: 180px; /* Expanded width */
 }
 
 .sidebar-icon {
   color: white;
   font-size: 24px;
   margin-bottom: 15px;
-  padding: 10px 15px;
+  padding: 10px 20px; /* Adjust padding for better touch target */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -161,8 +143,8 @@ body {
 
 .icon-name {
   display: none;
-  margin-left: 10px;
-  font-size: 14px;
+  margin-left: 15px; /* Increased spacing */
+  font-size: 16px; /* Increased font size */
   transition: opacity 0.4s ease; /* Smooth text appearance */
 }
 
@@ -178,6 +160,7 @@ body {
   padding: 20px;
   overflow-y: auto;
   background-color: #f4f6fa;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
 /* Header Styles */
@@ -202,7 +185,7 @@ body {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smoother hover effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smoother hover effect */
 }
 
 .welcome-section:hover {
@@ -213,8 +196,8 @@ body {
 /* Grid Styles */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px; /* Increased gap for better spacing */
 }
 
 .grid-item {
@@ -232,9 +215,9 @@ body {
 .grid-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smoother hover effect */
 }
 
+/* Icon Styles */
 .grid-item i {
   font-size: 40px;
   color: #563d7c;
@@ -244,12 +227,17 @@ body {
   margin-top: 10px;
   font-size: 18px;
   font-weight: bold;
+  color: #333; /* Improved color for readability */
 }
 
-/* Footer */
+/* Footer Styles */
 footer {
   background-color: #563d7c;
   color: white;
   text-align: center;
-  padding: 5px;
+  padding: 10px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
